@@ -1,0 +1,2 @@
+syms q1 q2 dq1 dq2 u real % q1, q2 are positions; dq1, dq2 are velocities
+syms J1 J2 m2 L1 l2 g b1 b2 km Rm real % System parameters

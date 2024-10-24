@@ -9,9 +9,6 @@ u = um(:,2);
 t = um(:,1);
 
 
-%% 
-
-
 % Task 2: Estimate velocity and acceleration (First Order Approximation)
 % HINT: You can use the "filter" function
 
@@ -43,8 +40,6 @@ title("vel");
 nexttile
 plot(t,q1_dd);
 title("acc");
-%% 
-
 
 
 % Task 3: Estimate velocity and acceleration (Discrete-time Differentiator)
@@ -81,7 +76,6 @@ title("vel");
 nexttile
 plot(t,q1_dd_filtered);
 title("acc");
-%% 
 
 % Task 4: Comparisons
 
@@ -100,8 +94,6 @@ title("acc");
 nexttile
 plot(t,q1_dd_filtered);
 title("acc filt");
-%% 
-%% 
 % Task 5: Least Squares Estimation
 % HINT: Make sure to account for the time-lag of the differentiator
 
@@ -117,13 +109,13 @@ else
     n_6 = n/2;
 end
 
-lag = (filt_order/2)+1;
+lag = (filter order
 q1_5= q1(1:n_5);
 q2_5=q2(1:n_5);
-q1_d_5=q1_d_filtered(1:n_5);
-q2_d_5=q2_d_filtered(1:n_5);
-q1_dd_5=q1_dd_filtered(1:n_5);
-q2_dd_5=q2_dd_filtered(1:n_5);
+q1_d_5=q1_d(1:n_5);
+q2_d_5=q2_d(1:n_5);
+q1_dd_5=q1_dd(1:n_5);
+q2_dd_5=q2_dd(1:n_5);
 
 Y = [q1_5; q2_5; q1_d_5; q2_d_5; q1_dd_5; q2_dd_5]; %2m x 6 so transpose
 Y = transpose(Y);
@@ -135,17 +127,16 @@ Y_T_Y = Y_T * Y; %6
 inv_YTY = inv (Y_T_Y); %n_5 x n_5
 Y_T_U = Y_T * U; %n_5 x 6 * 
 Phat = inv_YTY*Y_T_U; %supposed to by 6 x 1
-%% 
 
 % Task 6: Compute Model Prediction Error
 
 % **********************  Your Code Here ********************** %
 q1_6= q1(1:n_6);
 q2_6=q2(1:n_6);
-q1_d_6=q1_d_filtered(1:n_6);
-q2_d_6=q2_d_filtered(1:n_6);
-q1_dd_6=q1_dd_filtered(1:n_6);
-q2_dd_6=q2_dd_filtered(1:n_6);
+q1_d_6=q1_d(1:n_6);
+q2_d_6=q2_d(1:n_6);
+q1_dd_6=q1_dd(1:n_6);
+q2_dd_6=q2_dd(1:n_6);
 
 Y_6 = [q1_6; q2_6; q1_d_6; q2_d_6; q1_dd_6; q2_dd_6]; %2m x 6 so transpose
 Y_6 = transpose(Y_6);
@@ -164,7 +155,6 @@ PE= sqrt(sum_U_squig/sum_U);
 
 %comparing values graph 
 
-%% 
 
 % Task 7: Compute Percentage Parameter Estimation Error
 
@@ -176,7 +166,6 @@ p_i = zeros(6); %correct parameters ?? how do I know
 for i = 1:6
     p_i_squig = (abs(p_i(i)-Phat(i))/p_i(i))*100;
 end
-%% 
 
 % Task 8-10 
 % % ...

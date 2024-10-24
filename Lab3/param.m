@@ -32,3 +32,13 @@ q1dot0 =0.1;
 q2dot0 = -0.1;
 X0= [q10; q20-pi/10; q1dot0; q2dot0];
 
+%Params for the input
+A1 = 0.1;
+Af1 = 10;
+A2 = 0.1;
+Af2 = 20;
+A3 = 0.1;
+Af3 = 50;
+k = 1;
+
+

@@ -162,7 +162,7 @@ sys = simsizes(sizes);
 %
 % initialize the initial conditions
 %
-x0 = [1; 0.2 ; -0.2; 0];
+x0 = [0; (2*pi/3) ; 0; 0];
 %
 % str is always an empty matrix
 %
@@ -187,27 +187,25 @@ simStateCompliance = 'UnknownSimState';
 function sys=mdlDerivatives(t,x,u)
 % parameters
 
-J1 = 1;  % Inertia L1
-J2 = 2;  % Int L2
-m2 = 1;   % M2
-L1 = 1;   % length L1
-l2 = 1;   % L2 lenght to center of amss
-g = -9.81;   %grav
-b1 = 0;   % Damping J1
-b2 = 0;   % Dampin J2
-km = 1;  % Motor torque constant
-Rm = 1;   % Motor resistance
-u = 0;    % Input voltage
+m1 = 0.095;
+m2 = 0.024;   % M2
+L1 = 0.1;   % length L1
+L2 = 0.129;   % L2 lenght to center of amss
+J1 = (1/12)*m1*L1^2;  % Inertia L1
+J2 = (1/12)*m2*L2^2;  % Int L2
+g = 9.81;   %grav
+b1 = 0.001;   % Damping J1
+b2 = 0.00001;   % Dampin J2
+km = 0.042;  % Motor torque constant
+Rm = 8.4;   % Motor resistance
+l1 = L1/2;
+l2 = L2/2;
 
 %q variables 
-q1 = 0;   % J1 posn
-q2 = 0;   % J2 posn
-dq1 = 0;  % J1 V
-dq2 = 0;  % J2 V
-
-%x matrix
-x = [q1 ;q2 ;dq1; dq2];
-dx = [dq1; dq2; ddq1; ddq2];
+q1 = x(1);   % J1 posn
+q2 = x(2);   % J2 posn
+dq1 = x(3);  % J1 V
+dq2 = x(4);  % J2 V
 
 
 %  D(q)
@@ -221,15 +219,14 @@ U = [km/Rm * u; 0];
 
 
 %find ddq as shown in equation for task 1 
-ddq = inv(D) * (U-N);
-
-%the state space equation is in the form dx = A x assuming there is no u.
-%to isolate for A, doing dx/x
-A = dx/x; %Idk if that would work 
-B=[0;0;0;0];
+D_inv = inv(D);
+ddq = D_inv * (U-N);
+ddq1 = ddq(1) ;
+ddq2= ddq(2);
 
 
-sys = A*x + B*u;
+
+sys = [x(3) x(4) ddq(1) ddq(2)];
 % end mdlDerivatives
 %
 %=============================================================================

@@ -245,6 +245,19 @@ end
 
 PE= sqrt(sum_U_squig/sum_U);
 
+YP_estimation = Y_6*Phat;
+t_est= t(1:10000);
+ufirst_plot=ufirst(1:10000);
+%figure;
+plot(t_est, YP_estimation);
+hold on;
+plot(t_est, ufirst_plot);
+legend("Predicted Value", "Actual Value");
+title('Actual vs Predicted Input Voltage');
+xlabel('Time Step');
+ylabel('Input Voltage (V)');
+grid on;
+
 %comparing values graph 
 
 %% 

@@ -268,10 +268,10 @@ grid on;
 
 p_i_squig = [0 0 0 0 0 0]; %percentage parameter estimation
 
-
+P()
 for i = 1:6
-    abs_val = abs(P(i)-Phat(i)); 
-    p_i_squig(i) = (abs_val/P(i))*100;
+    abs_val = abs(abs(P(i))-abs(Phat(i))); 
+    p_i_squig(i) = (abs_val/abs(P(i)))*100;
 end
 %% 
 
@@ -314,7 +314,7 @@ Y_T_Y_L = Y_T_L * Y_L; %6xn_5 * n_5*6 = 6x6
 inv_YTY_L = inv (Y_T_Y_L); %6x6
 Y_T_U_L = Y_T_L * ufirst_L; %6xn_5 * n_5x1 = 6x1 * 
 Phat_L = inv_YTY_L*Y_T_U_L; %supposed to by 6 x 1
-%% Task 6 
+% Task 6 
 q1_6_L= transpose(q1_est(1:n_6_L));
 q2_6_L= transpose(q2_est(1:n_6_L));
 q1_d_6_L=transpose(q1_d_filtered_L(1:n_6_L));
@@ -334,4 +334,17 @@ for k = 1: n_6_L-1
 end
 
 PE_L= sqrt(sum_U_squig_L/sum_U_L);
+
+YP_estimation_L = Y_6_L*Phat_L;
+t_est= t(1:10000);
+ufirst_plot=ufirst(1:10000);
+%figure;
+plot(t_est, YP_estimation_L);
+hold on;
+plot(t_est, ufirst_plot);
+legend("Predicted Value", "Actual Value");
+title('Actual vs Predicted Input Voltage');
+xlabel('Time Step');
+ylabel('Input Voltage (V)');
+grid on;
 

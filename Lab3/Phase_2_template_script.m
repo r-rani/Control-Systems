@@ -47,13 +47,19 @@ end
 tiledlayout(1,3)
 nexttile
 plot(t, q1);
-title("Position of Q1");
+title("Position of Joint 1 (rads)");
+xlabel("Seconds");
+ylabel("Radians");
 nexttile
 plot(t, q1_d);
-title("vel");
+title("Velocity of Joint 1 rad/s");
+xlabel("Seconds");
+ylabel("Radians");
 nexttile
 plot(t,q1_dd);
-title("acc");
+title("Acceleration of Joint 1 rad/s^2");
+xlabel("Seconds");
+ylabel("Radians");
 %% 
 
 
@@ -77,6 +83,12 @@ d_filt = designfilt('differentiatorfir', ... % Response type
 % **********************  Your Code Here ********************** %
 %lag
 lag = (filt_order/2)+1;
+% Plot frequency response of the filter
+figure;
+freqz(d_filt);
+title('Frequency Response of the FIR Differentiator');
+%% 
+
 %velocity filtered 
 q1_d_filtered = filter(d_filt, q1);
 q1_d_filtered = q1_d_filtered(lag:length(q1_d_filtered));

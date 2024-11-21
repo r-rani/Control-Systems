@@ -69,7 +69,7 @@ ro = rank(PO);
 %% Task3
 %Observer Poles. Chose Random ones. pe is supposed to be faster so set the
 %value higher 
-pe = [32*p];
+pe = [5*p];
 %find L based on Observer Poles 
 L_T = place(transpose(A), transpose(C), pe);
 L = transpose(L_T);
@@ -77,9 +77,4 @@ p_o = transpose(eig(A-L*C)); %see poles
 
 %u=-K*x;
 
-%% Task5 and 6
-A_sim = A-L*C;
-B_sim = [B L];
-C_sim = eye(4);
-D_sim = zeros(4,3);
 
